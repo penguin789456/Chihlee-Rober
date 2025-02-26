@@ -11,7 +11,7 @@ SkillLeasonUrl = "https://skillshop.docebosaas.com/learn/courses/"
 
 def extract_links_from_page(fqdn,target):
     target = re.sub(r'[^a-zA-Z0-9]', '', target).lower()
-    with open(f"{fqdn}.json", "r", encoding="utf-8") as json_file:
+    with open(f"CertAnser\\{fqdn}.json", "r", encoding="utf-8") as json_file:
         data = json.load(json_file)
         for i in data:
             FileText = re.sub(r'[^a-zA-Z0-9]', '', i[0]).lower()
@@ -19,8 +19,7 @@ def extract_links_from_page(fqdn,target):
                 return i[1]
 
 
-def AnserSelect(page,soup,fqdn):
-    final = False
+def AnserSelect(page,fqdn):
     QuestionCount = 0
     while True:
         page.wait_for_selector(".dcb-course-lesson-submit-bar-controls")
@@ -40,7 +39,7 @@ def AnserSelect(page,soup,fqdn):
             found = False
             if checkbox.count() <= 1:
                 Anser_text_list = extract_links_from_page(fqdn,target_text)
-                if(Anser_text == "None" or Anser_text == "none"):
+                if(Anser_text_list == "None" or Anser_text_list == "none"):
                     elements.nth(0).click()
                 else:
                     for Anser_text in Anser_text_list:
@@ -86,16 +85,15 @@ def AnserSelect(page,soup,fqdn):
                 checkbox.nth(1).click()
             NextButton.click()
     time.sleep(10)
+
 def main():
-    # 啟動 Playwright
-    Anser_host = "https://www.gcertificationcourse.com/"
-    AnserUrl = ['google-ads-measurement-certification-answers','google-ads-apps-assessment-answers','display-video-360-certification-exam-answers','google-ads-creative-exam-answers','grow-offline-sales-certification-answers','google-ads-ai-powered-performance-ads-answers','google-analytics-certification-answers','campaign-manager-certification-answers']
+    AnserUrl = ['google-ads-apps-assessment-answers','display-video-360-certification-exam-answers','google-ads-creative-exam-answers','grow-offline-sales-certification-answers','google-ads-ai-powered-performance-ads-answers','google-analytics-certification-answers','campaign-manager-certification-answers']
     account = "chenruien501@gmail.com"
     password = "bin45177096"
     webhook_url = "https://discord.com/api/webhooks/1344280252196585503/2HYpHEjgqibjI-aadb7a_Af5lwyWtRulmRzgLaHIOOF_IYNai_BY6rRENz9Tkxhbehse"
     SkillcertURLDict = dict()
 
-    with open(r"C:\Users\binho\Downloads\Chihlee Rober\leasonURL.CSV", mode='r', encoding='utf-8') as file:
+    with open(r"C:\Users\binho\Downloads\Chihlee-Rober\leasonURL.CSV", mode='r', encoding='utf-8') as file:
         csv_reader = csv.reader(file)
         for row in csv_reader:
             key = row[0]
@@ -122,13 +120,28 @@ def main():
             data = {
                 "content": "Cert "+fqdn+" user "+account
             }
-            response = requests.post(webhook_url, json=data)
+            requests.post(webhook_url, json=data)
             page.goto(SkillLeasonUrl+SkillcertURLDict[fqdn])
             time.sleep(15)
-            response = requests.get(Anser_host+fqdn)
-            if response.status_code == 200:
-                soup = BeautifulSoup(response.content, "html.parser")
-                AnserSelect(page,soup,fqdn)
+            REnew = page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dcb-course-certification-renewal > dcb-ui-notification > div.dcb-ui-notification-actions > dcb-ui-notification-aside > button > span.dcb-ui-button-interaction-backdrop")
+            if REnew.is_visible():
+                REnew.click()
+                time.sleep(1)
+                page.locator("dcb-course-certification-renewal-dialog > div > div.dcb-course-certification-renewal-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple").nth(0).click()
+            time.sleep(10)
+            UItextType = page.locator("dcb-ui-accordion").all()
+            for type in UItextType:
+                type.click()
+            assessmentDom = page.locator("dcb-sh-list-item-content").filter(has_text="Pass the assessment and earn a certification").locator("..").locator("..")
+            assessmentDom.locator("dcb-sh-list-item-content").filter(has_text="Content type: HTML").click()
+            time.sleep(10)
+            assessmentDom.locator("dcb-sh-list-item-content").filter(has_text="Content type: Test").click()
+            time.sleep(10)
+            page.locator("div.dcb-course-lesson-player-test-launcher-actions > button > span.dcb-ui-button-content > span").click()
+            time.sleep(3)
+            page.locator("div.dcb-course-lesson-player-test-launcher-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple > span.dcb-ui-button-content").click()
+            time.sleep(8)
+            AnserSelect(page,fqdn)
         time.sleep(15)
         browser.close()
         data = {
