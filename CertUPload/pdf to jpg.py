@@ -1,6 +1,8 @@
 from pdf2image import convert_from_path
 import os
 
+UserName = "資料夾名稱"
+
 def pdf_to_jpg(pdf_folder, output_folder):
     # 確保輸出資料夾存在
     if not os.path.exists(output_folder):
@@ -25,6 +27,6 @@ def pdf_to_jpg(pdf_folder, output_folder):
                 print(f"轉換 {pdf_file} 時發生錯誤: {e}")
 
 # 使用範例
-pdf_folder = r"C:\Users\binho\Downloads\學校證照rober\證照檔\老兔朋友"  # 替換為存放 PDF 的資料夾路徑
+pdf_folder = "C:\\Users\\binho\\Downloads\\Chihlee-Rober\\證照檔\\"+UserName  # 替換為存放 PDF 的資料夾路徑
 output_folder = pdf_folder  # 輸出 JPG 的總資料夾
 pdf_to_jpg(pdf_folder, output_folder)

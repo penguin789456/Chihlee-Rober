@@ -7,9 +7,9 @@ import unicodedata
 import csv
 import json
 
-SkillLeasonUrl = "https://skillshop.docebosaas.com/learn/courses/"
 
-def extract_links_from_page(fqdn,target):
+
+def GetFromJSON(fqdn,target):
     target = re.sub(r'[^a-zA-Z0-9]', '', target).lower()
     with open(f"CertAnser\\{fqdn}.json", "r", encoding="utf-8") as json_file:
         data = json.load(json_file)
@@ -38,7 +38,7 @@ def AnserSelect(page,fqdn):
         try:
             found = False
             if checkbox.count() <= 1:
-                Anser_text_list = extract_links_from_page(fqdn,target_text)
+                Anser_text_list = GetFromJSON(fqdn,target_text)
                 if(Anser_text_list == "None" or Anser_text_list == "none"):
                     elements.nth(0).click()
                 else:
@@ -57,12 +57,12 @@ def AnserSelect(page,fqdn):
                 NextButton.click()
                 time.sleep(5)
             else:
-                Anser_text = extract_links_from_page(fqdn,target_text)
+                Anser_text = GetFromJSON(fqdn,target_text)
+                print(Anser_text)
                 if(Anser_text == "None" or Anser_text == "none"):
                     checkbox.nth(0).click()
                 else:
                     for Box in Anser_text:
-                        print(Anser_text)
                         Box = re.sub(r'[^a-zA-Z0-9]', '', Box)
                         for i in range(checkbox.count()):
                             if checkbox.nth(i).text_content() != None: 
@@ -86,12 +86,77 @@ def AnserSelect(page,fqdn):
             NextButton.click()
     time.sleep(10)
 
+def YTMUSIC(page,fqdn):
+    index = 0
+    while True:
+        page.wait_for_selector("#assessment-response-submit")
+        NextButton = page.locator("#assessment-response-submit")
+        NextButtonContent = NextButton.text_content()
+        time.sleep(1)
+        page.wait_for_selector(".question__question")
+        target_text = page.locator(".question__question").text_content()
+        elements = page.locator(".question__choicesitem")
+        checkbox = page.locator(".dcb-ui-input-checkbox")
+        if "Next" not in NextButtonContent:
+            elements.nth(0).click()
+            NextButton.click()
+            break
+        # print(elements.all_text_contents())
+        try:
+            found = False
+            if checkbox.count() <= 0:
+                Anser_text_list = GetFromJSON(fqdn,target_text)
+                if(Anser_text_list == "None" or Anser_text_list == "none"):
+                    elements.nth(0).click()
+                else:
+                    for Anser_text in Anser_text_list:
+                        for i in range(elements.count()):
+                            Anser_text = str(Anser_text).replace("’","'").replace("‘", "'").replace("\n","").replace(" ","").strip().lower() #’ '
+                            if elements.nth(i).text_content() != None:
+                                checkText =  str(elements.nth(i).text_content()).replace("’","'").replace("‘", "'").replace("\n","").replace(" ","").strip().lower()
+                                if Anser_text in checkText:
+                                    elements.nth(i).click()  
+                                    found = True
+                                    break
+                                if not found:
+                                    elements.nth(0).click()
+            else:
+                Anser_text = GetFromJSON(fqdn,target_text)
+                if(Anser_text == "None" or Anser_text == "none"):
+                    elements.nth(0).click()
+                else:
+                    for Box in Anser_text:
+                        print(Box)
+                        Box = str(Box).replace("’","'").replace("‘", "'").replace("\n","").replace(" ","").strip().lower()
+                        for i in range(elements.count()):
+                            if elements.nth(i).text_content() != None: 
+                                checkText =  str(elements.nth(i).text_content()).replace("’","'").replace("‘", "'").replace("\n","").replace(" ","").strip().lower()
+                                if Box in checkText:
+                                    elements.nth(i).click()  
+                                    found = True
+                                    break
+                                if not found:
+                                    elements.nth(0).click()
+        except:
+            print("except")
+            if checkbox.count() <= 1:
+                elements.nth(0).click()
+            else:
+                elements.nth(0).click()
+                elements.nth(1).click()
+        NextButton.click()
+        index +=1
+
 def main():
-    AnserUrl = ['google-ads-apps-assessment-answers','display-video-360-certification-exam-answers','google-ads-creative-exam-answers','grow-offline-sales-certification-answers','google-ads-ai-powered-performance-ads-answers','google-analytics-certification-answers','campaign-manager-certification-answers']
-    account = "chenruien501@gmail.com"
-    password = "bin45177096"
+    AnserUrl = ['grow-offline-sales-certification-answers','google-ads-ai-powered-performance-ads-answers','google-analytics-certification-answers','campaign-manager-certification-answers']
+    account = "GOOGLE帳號"
+    password = "GOOGLE密碼"
     webhook_url = "https://discord.com/api/webhooks/1344280252196585503/2HYpHEjgqibjI-aadb7a_Af5lwyWtRulmRzgLaHIOOF_IYNai_BY6rRENz9Tkxhbehse"
     SkillcertURLDict = dict()
+    SendContent = ""
+    SkillLeasonUrl = "https://skillshop.docebosaas.com/learn/courses/"
+    YTSkillLeasonUrl = "https://skillshop.exceedlms.com/student/path/"
+    YTnotLogin = False
 
     with open(r"C:\Users\binho\Downloads\Chihlee-Rober\leasonURL.CSV", mode='r', encoding='utf-8') as file:
         csv_reader = csv.reader(file)
@@ -102,7 +167,7 @@ def main():
 
     with sync_playwright() as p:
         # 使用 Chromium 瀏覽器
-        browser = p.chromium.launch(headless=False)  # 設定 headless=False 以打開瀏覽器介面
+        browser = p.chromium.launch(headless=True)  # 設定 headless=False 以打開瀏覽器介面
         page = browser.new_page()
         page.goto("https://skillshop.docebosaas.com/learn/signin")
         time.sleep(10)
@@ -116,38 +181,69 @@ def main():
         page.fill(password_selector, password)  # 替換為目標電子郵件地址
         page.locator("#passwordNext > div > button").click()
         time.sleep(15)
-        for fqdn in AnserUrl:
-            data = {
-                "content": "Cert "+fqdn+" user "+account
-            }
-            requests.post(webhook_url, json=data)
-            page.goto(SkillLeasonUrl+SkillcertURLDict[fqdn])
-            time.sleep(15)
-            REnew = page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dcb-course-certification-renewal > dcb-ui-notification > div.dcb-ui-notification-actions > dcb-ui-notification-aside > button > span.dcb-ui-button-interaction-backdrop")
-            if REnew.is_visible():
-                REnew.click()
-                time.sleep(1)
-                page.locator("dcb-course-certification-renewal-dialog > div > div.dcb-course-certification-renewal-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple").nth(0).click()
-            time.sleep(10)
-            UItextType = page.locator("dcb-ui-accordion").all()
-            for type in UItextType:
-                type.click()
-            assessmentDom = page.locator("dcb-sh-list-item-content").filter(has_text="Pass the assessment and earn a certification").locator("..").locator("..")
-            assessmentDom.locator("dcb-sh-list-item-content").filter(has_text="Content type: HTML").click()
-            time.sleep(10)
-            assessmentDom.locator("dcb-sh-list-item-content").filter(has_text="Content type: Test").click()
-            time.sleep(10)
-            page.locator("div.dcb-course-lesson-player-test-launcher-actions > button > span.dcb-ui-button-content > span").click()
-            time.sleep(3)
-            page.locator("div.dcb-course-lesson-player-test-launcher-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple > span.dcb-ui-button-content").click()
-            time.sleep(8)
-            AnserSelect(page,fqdn)
-        time.sleep(15)
-        browser.close()
+        print("Login")
+        try:
+            for fqdn in AnserUrl:
+                SendContent += "Cert "+fqdn+" user "+account+"\n"
+                if fqdn == "youtube-music-rights-management-certification-answers" or fqdn == "youtube-music-assessment-answers":
+                    page.goto(YTSkillLeasonUrl+SkillcertURLDict[fqdn])
+                    print("YT")
+                    time.sleep(15)
+                    if not YTnotLogin:
+                        page.locator("body > div.appheader.appheader--exceed.u-org--header > div > div:nth-child(2) > div > a").click()
+                        time.sleep(5)
+                        page.locator(f'[data-email="{account}"]').click()
+                        time.sleep(40)
+                    if page.locator(f'[data-activity-type="CourseAssessment"]').text_content() == "Retake":
+                        page.locator(f'[data-activity-type="CourseAssessment"]').click()
+                        time.sleep(5)
+                    if page.locator(f'[data-activity-type="CourseAssessment"]').text_content() != "Retake":
+                        page.locator(f'[data-activity-type="CourseAssessment"]').click()
+                        time.sleep(5)
+                    if fqdn != "youtube-music-rights-management-certification-answers":
+                        page.locator(f'[data-activity-type="CourseAssessment"]').click()
+                    time.sleep(5)
+                    YTMUSIC(page,fqdn)
+                    time.sleep(5)
+                    
+                else:
+                    page.goto(SkillLeasonUrl+SkillcertURLDict[fqdn])
+                    print("Skill")
+                    time.sleep(15)
+                    if fqdn == "grow-offline-sales-certification-answers":
+                        page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dialog > div.dcb-course-player-wrapper.ng-star-inserted > dcb-course-lesson-header > div > div.dcb-course-lesson-header-slot-end > button").click()
+                        time.sleep(1)
+                    REnew = page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dcb-course-certification-renewal > dcb-ui-notification > div.dcb-ui-notification-actions > dcb-ui-notification-aside > button > span.dcb-ui-button-interaction-backdrop")
+                    if REnew.is_visible():
+                        REnew.click()
+                        time.sleep(1)
+                        page.locator("dcb-course-certification-renewal-dialog > div > div.dcb-course-certification-renewal-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple").nth(0).click()
+                        time.sleep(5)
+                        page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dialog > div.dcb-course-player-wrapper.ng-star-inserted > dcb-course-lesson-header > div > div.dcb-course-lesson-header-slot-end > button").click()
+                    time.sleep(10)
+                    UItextType = page.locator("dcb-ui-accordion").all()
+                    for type in UItextType:
+                        type.click()
+                    page.locator("dcb-sh-list-item-content").filter(has_text="Content type: HTML").click()
+                    time.sleep(10)
+                    assessmentDom = page.locator(".dcb-ui-accordion-panel-header").filter(has_text="certification")
+                    assessmentDom = assessmentDom.locator("..")
+                    assessmentDom.locator("dcb-sh-list-item-content").filter(has_text="Content type: Test").click()
+                    time.sleep(10)
+                    page.locator("div.dcb-course-lesson-player-test-launcher-actions > button > span.dcb-ui-button-content > span").click()
+                    time.sleep(3)
+                    page.locator("div.dcb-course-lesson-player-test-launcher-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple > span.dcb-ui-button-content").click()
+                    time.sleep(8)
+                    AnserSelect(page,fqdn)
+            time.sleep(30)
+            browser.close()
+        except Exception as e:
+            print(e)
         data = {
-                "content": "FIN"
-            }
-        response = requests.post(webhook_url, json=data)
+            "content": SendContent
+        }
+        requests.post(webhook_url, json=data)
+
 
 
 if __name__ == "__main__":

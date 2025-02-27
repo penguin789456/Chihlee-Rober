@@ -7,11 +7,11 @@ from playwright.sync_api import sync_playwright
 import time
 import csv
 
-folder_path = r"C:\Users\binho\Downloads\學校證照rober\證照檔\猴子"
-account = "11010202"
-password = "a153153153"
+folder_path = r"C:\Users\binho\Downloads\Chihlee-Rober\證照檔\林彥臣"
+account = "學校帳號"
+password = "學校密碼"
 
-CSV_path = r"C:\Users\binho\Downloads\學校證照rober\googleCERT.csv"
+CSV_path = r"C:\Users\binho\Downloads\Chihlee-Rober\CertUPload\googleCERT.csv"
 
 with open(CSV_path, mode='r', newline='', encoding='utf-8') as file:
     reader = csv.reader(file)  # 使用 csv.reader 來讀取每一行
@@ -124,4 +124,4 @@ with sync_playwright() as p:
             input("waiting close")
             browser.close()
         time.sleep(1)
-print("file Done")
+print("fail done")

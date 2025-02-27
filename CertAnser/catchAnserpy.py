@@ -8,7 +8,7 @@ import csv
 import json
 
 Anser_host = "https://www.gcertificationcourse.com/"
-AnserUrl = ['google-ads-display-certification-answers','google-ads-search-certification-answers','shopping-advertising-certification-answers','google-ads-video-certification-answers','google-ads-measurement-certification-answers','google-ads-apps-assessment-answers','display-video-360-certification-exam-answers','google-ads-creative-exam-answers','grow-offline-sales-certification-answers','google-ads-ai-powered-performance-ads-answers','google-analytics-certification-answers','campaign-manager-certification-answers']
+AnserUrl = ["youtube-music-rights-management-certification-answers","youtube-music-assessment-answers"]
 MainList = []
 
 for fqdn in AnserUrl:
