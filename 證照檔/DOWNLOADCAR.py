@@ -9,8 +9,8 @@ UserName = "資料夾名稱"
 FolderName = "證照檔\\"+UserName
 
 with sync_playwright() as p:
-    acount = "chenruien501@gmail.com"
-    password = "Bin45177096!"
+    acount = "ca帳號"
+    password = "ca密碼"
     ACURL = "https://www.credential.net"
     itemList = []
     pdf_urlList = []
