@@ -32,7 +32,11 @@ def AnserSelect(page,fqdn):
         checkbox = page.locator("dcb-ui-input-checkbox")
         # print(checkbox.count())
         if"Next" not in NextButton.text_content():
-            elements.nth(0).click()
+            if checkbox.count() <= 1:
+                elements.nth(0).click()
+            else:
+                checkbox.nth(0).click()
+                checkbox.nth(1).click()
             NextButton.click()
             break
         try:
@@ -193,16 +197,7 @@ def main():
                         page.locator("body > div.appheader.appheader--exceed.u-org--header > div > div:nth-child(2) > div > a").click()
                         time.sleep(5)
                         page.locator(f'[data-email="{account}"]').click()
-                        time.sleep(40)
-                    if page.locator(f'[data-activity-type="CourseAssessment"]').text_content() == "Retake":
-                        page.locator(f'[data-activity-type="CourseAssessment"]').click()
-                        time.sleep(5)
-                    if page.locator(f'[data-activity-type="CourseAssessment"]').text_content() != "Retake":
-                        page.locator(f'[data-activity-type="CourseAssessment"]').click()
-                        time.sleep(5)
-                    if fqdn != "youtube-music-rights-management-certification-answers":
-                        page.locator(f'[data-activity-type="CourseAssessment"]').click()
-                    time.sleep(5)
+                    input("Press Enter to continue...")
                     YTMUSIC(page,fqdn)
                     time.sleep(5)
                     
@@ -226,7 +221,10 @@ def main():
                         type.click()
                     page.locator("dcb-sh-list-item-content").filter(has_text="Content type: HTML").click()
                     time.sleep(10)
-                    assessmentDom = page.locator(".dcb-ui-accordion-panel-header").filter(has_text="certification")
+                    if  fqdn == "google-ads-display-certification-answers" or fqdn == "shopping-advertising-certification-answers":
+                        assessmentDom = page.locator(".dcb-ui-accordion-panel-header").filter(has_text="Pass the assessment and earn a certification")
+                    else:
+                        assessmentDom = page.locator(".dcb-ui-accordion-panel-header").filter(has_text="certification")
                     assessmentDom = assessmentDom.locator("..")
                     assessmentDom.locator("dcb-sh-list-item-content").filter(has_text="Content type: Test").click()
                     time.sleep(10)
