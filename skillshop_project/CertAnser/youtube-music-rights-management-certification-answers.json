@@ -1,0 +1,303 @@
+[
+    [
+        "How could you best describe the relationship between copyright law and content on YouTube?",
+        [
+            "YouTube’s tools and policies are designed to protect rightsholders’ copyrights, and users who don’t respect our tools and policies are subject to consequences."
+        ]
+    ],
+    [
+        "John is feeling inspired, so he writes down some chords and lyrics for a new song. Which type of copyright protects his work?",
+        [
+            "Musical composition"
+        ]
+    ],
+    [
+        "Lin produces a video of herself singing a song that John wrote, and uploads it to YouTube. Which of the following is true?",
+        [
+            "Lin owns the rights to the music video and sound recording, but John owns the rights to the underlying musical composition."
+        ]
+    ],
+    [
+        "Using music from which of the following sources will help you avoid copyright infringement on YouTube?",
+        [
+            "All of the above"
+        ]
+    ],
+    [
+        "Lin uploads her cover of John’s song to YouTube, but then Content ID claims it and the video is blocked. What should Lin have done before uploading the video?",
+        [
+            "She should have gotten permission from John to record his song."
+        ]
+    ],
+    [
+        "Ryan likes a bassline from a popular artist’s song and wants to use it in his own video. He’s unsure of whether he has the rights to use it. What should he do first?",
+        [
+            "Consult a lawyer."
+        ]
+    ],
+    [
+        "Nicky uploads a video of herself reviewing an artist’s new music video, and includes a clip of the music video. Her video is claimed by Content ID on behalf of the artist’s record label. Which course of action could Nicky take?",
+        [
+            "All of the above."
+        ]
+    ],
+    [
+        "Breanna works at a publishing company and manages her company’s composition rights on YouTube. The company owns the composition rights to “Song XYZ” worldwide, but only has a license with YouTube in the U.S. and Canada. Where should Breanna assert ownership for “Song XYZ” on YouTube?",
+        [
+            "Only in the U.S. and Canada."
+        ]
+    ],
+    [
+        "Ty works at a record label and manages monetization of their catalog on YouTube. Which of the following can help Ty generate revenue from user covers that utilize the label’s sound recordings?",
+        [
+            "Content ID matching"
+        ]
+    ],
+    [
+        "Which tool is only available to music partners who have access to Content ID?",
+        [
+            "Content Manager CMS"
+        ]
+    ],
+    [
+        "Elizabeth runs a music publishing company and needs a group of employees to manage the company’s composition assets on YouTube. However, she wants her direct report, Ron, to oversee the employees’ access to the assets. How could Elizabeth best accomplish this in Content Manager CMS?",
+        [
+            "Elizabeth could give Administrator access to Ron, and create roles with more restrictive access for the other employees."
+        ]
+    ],
+    [
+        "Which of the following statements is true?",
+        [
+            "All of the above.",
+            "Your sender reputation score is unique to each ISP and is NOT made public."
+        ]
+    ],
+    [
+        "Which of the following is a music asset type?",
+        [
+            "Composition Share"
+        ]
+    ],
+    [
+        "How could you best describe the relationship between assets and videos on YouTube?",
+        [
+            "Each video on YouTube contains one or more assets."
+        ]
+    ],
+    [
+        "A new colleague is being trained to deliver rights information to YouTube, and she asks you what an asset is. How could you best describe it to her?",
+        [
+            "It’s a container of information that represents copyrighted content on YouTube."
+        ]
+    ],
+    [
+        "Alina works at a publishing company and needs to deliver assets on YouTube for a songwriter’s catalog. What information will she need to include?",
+        [
+            "Metadata, ownership information, claiming policies, and linked relationships to Sound Recording Assets."
+        ]
+    ],
+    [
+        "Hugot works at a record label and needs to deliver assets for an artist’s new album. What information will he need to include?",
+        [
+            "Metadata, references, ownership information, and match policies."
+        ]
+    ],
+    [
+        "Who is responsible for accurately representing the ownership information for an asset on YouTube?",
+        [
+            "Content managers and rightsholders"
+        ]
+    ],
+    [
+        "Melanie’s company owns an asset in North America, but she figures she should claim ownership worldwide to maximize ad revenue from the asset. Why is this a bad idea?",
+        [
+            "Because claiming ownership in territories where they don’t own the asset could lead to bad claims and the termination of the company’s partnership with YouTube."
+        ]
+    ],
+    [
+        "Publisher X claims 50% ownership of a Composition Share Asset, while Publisher Z claims 60% ownership. Both publishers linked their Composition Share Assets to the same Sound Recording Asset in France. What would you call the situation that these two partners are in?",
+        [
+            "Ownership conflict"
+        ]
+    ],
+    [
+        "Daniel’s boss wants him to figure out why their artist’s album isn’t generating as much revenue on YouTube as previous albums. Daniel discovers numerous asset ownership conflicts that need his attention. Which step would NOT help him resolve these conflicts?",
+        [
+            "Delete and re-deliver the assets."
+        ]
+    ],
+    [
+        "Which statement about delivering references is true?",
+        [
+            "References should contain only material that the rightsholder owns."
+        ]
+    ],
+    [
+        "Label A and Label B delivered references that include some of the same material, even though they own different assets. What kind of situation has just arisen, and how can they solve it?",
+        [
+            "A reference overlap. The label that delivered the most recent reference will need to address the overlap in their Issues queue."
+        ]
+    ],
+    [
+        "David needs to deliver references to YouTube for an artist’s new album. His company created one music video for the album, but the other songs don’t have official videos yet. What kind of reference material should he deliver for the album’s assets?",
+        [
+            "A music video for the Music Video Asset, and sound recordings for the other songs."
+        ]
+    ],
+    [
+        "Meg is delivering an artist’s new album to YouTube. When the upload is complete, Content ID claims the videos and applies the policy that Meg’s company set for their content. What’s the term for this type of claim?",
+        [
+            "Partner-uploaded"
+        ]
+    ],
+    [
+        "Rupi works at a publishing company and manages their songwriters’ Composition Share Assets on YouTube. Artist A has to dispute all claims that Rupi’s company makes against his cover videos, because he obtained a license to cover songs from their catalog. What should Rupi do to prevent these claims in the future?",
+        [
+            "Whitelist Artist A’s channel."
+        ]
+    ],
+    [
+        "Label A delivered a batch of references with third-party content and received numerous invalid claims as a result. How quickly should Label A address their invalid claims?",
+        [
+            "As soon as possible."
+        ]
+    ],
+    [
+        "Georgette uploads a video that includes a mashup of several songs, including a hit single by Artist B. Content ID claims Georgette’s video on behalf of Artist B’s record label. Georgette disputes the claim, and the label reinstates it. Georgette still doesn’t believe the claim is valid and responds. How could you best describe this claim scenario?",
+        [
+            "User-uploaded claim that the user has appealed."
+        ]
+    ],
+    [
+        "Which of these pairs accurately describes the relationship between a claimed video and claiming policies?",
+        [
+            "Content ID applies an upload policy to partner-uploaded claims."
+        ]
+    ],
+    [
+        "Publisher Y wants to maximize the revenue they earn on YouTube from Songwriter C’s catalog. Which policy should they apply to Songwriter C’s assets?",
+        [
+            "Monetize"
+        ]
+    ],
+    [
+        "Bruce is explaining to a new colleague how YouTube applies policies to a video claimed by multiple assets, starting with the most restrictive policy. In which order should Bruce place these policies?",
+        [
+            "Block, track, monetize."
+        ]
+    ],
+    [
+        "Label D needs to prevent users in Spain from uploading tracks from an artist’s new album – which leaked online – to YouTube. Which of the following might describe the custom policy that Label D creates?",
+        [
+            "Block user-uploaded videos in Spain where audio reference match amount >95%."
+        ]
+    ],
+    [
+        "Why should Label Z monitor copyright strikes for all of their artists’ channels?",
+        [
+            "Multiple strikes may impact their access to features."
+        ]
+    ],
+    [
+        "If Hunter disputes Publisher X’s Content ID claim on his cover video, which option is NOT available to Publisher X in response?",
+        [
+            "Retract the dispute"
+        ]
+    ],
+    [
+        "Publisher X decides to issue a copyright takedown in response to Hunter’s cover video. Which of the following is NOT a good option for Hunter?",
+        [
+            "Delete the video and reupload it with a different title."
+        ]
+    ],
+    [
+        "If Label Z and Label Y claim an asset in the same territory, but Label Z has a match policy of Block and Label Y has a match policy of Track, which policy will YouTube apply until the partners resolve their ownership conflict?",
+        [
+            "Block"
+        ]
+    ],
+    [
+        "Shawna has no match policy selected for a territory where she owns Asset A. How would this impact a multiple-claim scenario in which another partner has a worldwide Monetize policy for Asset B?",
+        [
+            "The video will monetize in Shawna’s territory."
+        ]
+    ],
+    [
+        "Content ID claims a video with Asset X and Asset Y, which have two different owners. Asset X has a Monetize policy in France, and Asset Y has a Track policy worldwide. Which policy will be applied to the video in France?",
+        [
+            "Track"
+        ]
+    ],
+    [
+        "Label W just acquired the rights to a catalog of 10,000 songs. Which of the following asset delivery methods is the least appropriate for their needs?",
+        [
+            "Basic YouTube.com UI"
+        ]
+    ],
+    [
+        "Label W decides to use the DDEX feed to update their asset metadata. Which of the following is a crucial last step to avoid upload errors?",
+        [
+            "Validate the metadata"
+        ]
+    ],
+    [
+        "What do labels need to deliver to YouTube that publishers typically don’t?",
+        [
+            "References"
+        ]
+    ],
+    [
+        "Patrick works at a record label and is advising a new colleague on how to deliver an artist’s catalog to YouTube. The colleague asks Patrick whether they should deliver the songs that don’t have music videos. What should Patrick say?",
+        [
+            "Yes, because they become Art Tracks and are critical to earning revenue and exposure across YouTube and YouTube Premium."
+        ]
+    ],
+    [
+        "To ensure that Content ID can claim videos on their behalf, Publisher Z needs to link together which two things during delivery?",
+        [
+            "Composition Share Assets and Sound Recording Assets"
+        ]
+    ],
+    [
+        "Label E has developed an internal app that aggregates bulk YouTube data about their artists. From where does Label E likely obtain this data?",
+        [
+            "YouTube Reporting API"
+        ]
+    ],
+    [
+        "Vanessa’s boss asks her to recommend a tool for a new data project. Vanessa suggests BigQuery. What does the project likely entail?",
+        [
+            "Transferring many reports on a set schedule and storing that data."
+        ]
+    ],
+    [
+        "Sage manages song rights for multiple artists. What can he do with Content Manager CMS that he can’t achieve with YouTube Studio Analytics?",
+        [
+            "Compare asset policies across the channels he manages."
+        ]
+    ],
+    [
+        "Subscription revenue reports tell music partners about revenue coming from where?",
+        [
+            "YouTube Premium and YouTube Music paid subscriptions"
+        ]
+    ],
+    [
+        "If Publisher X and Publisher Z own the same asset in different territories, who is responsible for ensuring that each Publisher earns the correct amount of revenue from the asset?",
+        [
+            "YouTube"
+        ]
+    ],
+    [
+        "Renée suspects that some of her company’s assets aren’t earning revenue because another company has asserted ownership in the same territories. Where could she find information that supports or refutes her suspicion?",
+        [
+            "Asset Conflict Report"
+        ]
+    ],
+    [
+        "Which of the following is NOT part of the Content ID matching process?",
+        [
+            "DDEX"
+        ]
+    ]
+]

@@ -1,7 +1,7 @@
 from pdf2image import convert_from_path
 import os
 
-UserName = "資料夾名稱"
+UserName = "張佩胎"
 
 def pdf_to_jpg(pdf_folder, output_folder):
     # 確保輸出資料夾存在

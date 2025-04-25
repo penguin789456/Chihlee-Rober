@@ -6,6 +6,8 @@ import re
 import unicodedata
 import csv
 import json
+import configparser
+import os
 
 
 
@@ -152,9 +154,8 @@ def YTMUSIC(page,fqdn):
         index +=1
 
 def main():
-    AnserUrl = ['grow-offline-sales-certification-answers','google-ads-ai-powered-performance-ads-answers','google-analytics-certification-answers','campaign-manager-certification-answers']
-    account = "GOOGLE帳號"
-    password = "GOOGLE密碼"
+    AnserUrl = ['google-ads-display-certification-answers','google-ads-search-certification-answers','shopping-advertising-certification-answers','google-ads-video-certification-answers']
+    Account_passwords  = {"linc50258@gmail.com":"BIN45177096"} 
     webhook_url = "https://discord.com/api/webhooks/1344280252196585503/2HYpHEjgqibjI-aadb7a_Af5lwyWtRulmRzgLaHIOOF_IYNai_BY6rRENz9Tkxhbehse"
     SkillcertURLDict = dict()
     SendContent = ""
@@ -168,79 +169,95 @@ def main():
             key = row[0]
             value = row[1]
             SkillcertURLDict[key] = value
-
-    with sync_playwright() as p:
-        # 使用 Chromium 瀏覽器
-        browser = p.chromium.launch(headless=True)  # 設定 headless=False 以打開瀏覽器介面
-        page = browser.new_page()
-        page.goto("https://skillshop.docebosaas.com/learn/signin")
-        time.sleep(10)
-        SignButton = page.locator("#doc-layout-login > div > form > div > ui-button-raised-neutral > ui-button-raised > button")
-        SignButton.click()
-        email_selector = 'input[type="email"]'  # 選擇器
-        page.fill(email_selector, account)  # 替換為目標電子郵件地址
-        page.locator("#identifierNext > div > button").click()
-        time.sleep(2)
-        password_selector = 'input[type="password"]'  # 選擇器
-        page.fill(password_selector, password)  # 替換為目標電子郵件地址
-        page.locator("#passwordNext > div > button").click()
-        time.sleep(15)
-        print("Login")
-        try:
-            for fqdn in AnserUrl:
-                SendContent += "Cert "+fqdn+" user "+account+"\n"
-                if fqdn == "youtube-music-rights-management-certification-answers" or fqdn == "youtube-music-assessment-answers":
-                    page.goto(YTSkillLeasonUrl+SkillcertURLDict[fqdn])
-                    print("YT")
-                    time.sleep(15)
-                    if not YTnotLogin:
-                        page.locator("body > div.appheader.appheader--exceed.u-org--header > div > div:nth-child(2) > div > a").click()
+            
+    for account, password in Account_passwords.items():
+        with sync_playwright() as p:
+            # 使用 Chromium 瀏覽器
+            browser = p.chromium.launch(headless=False)  # 設定 headless=False 以打開瀏覽器介面
+            page = browser.new_page()
+            page.goto("https://skillshop.docebosaas.com/learn/signin")
+            time.sleep(10)
+            SignButton = page.locator("#doc-layout-login > div > form > div > ui-button-raised-neutral > ui-button-raised > button")
+            SignButton.click()
+            email_selector = 'input[type="email"]'  # 選擇器
+            page.fill(email_selector, account)  # 替換為目標電子郵件地址
+            page.locator("#identifierNext > div > button").click()
+            time.sleep(2)
+            password_selector = 'input[type="password"]'  # 選擇器
+            page.fill(password_selector, password)  # 替換為目標電子郵件地址
+            page.locator("#passwordNext > div > button").click()
+            time.sleep(15)
+            print("Login")
+            try:
+                SendContent += "Send\n"
+                for fqdn in AnserUrl:
+                    if fqdn == "youtube-music-rights-management-certification-answers" or fqdn == "youtube-music-assessment-answers":
+                        page.goto(YTSkillLeasonUrl+SkillcertURLDict[fqdn])
+                        input("Press Enter to continue...")
+                        YTMUSIC(page,fqdn)
                         time.sleep(5)
-                        page.locator(f'[data-email="{account}"]').click()
-                    input("Press Enter to continue...")
-                    YTMUSIC(page,fqdn)
-                    time.sleep(5)
-                    
-                else:
-                    page.goto(SkillLeasonUrl+SkillcertURLDict[fqdn])
-                    print("Skill")
-                    time.sleep(15)
-                    if fqdn == "grow-offline-sales-certification-answers":
-                        page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dialog > div.dcb-course-player-wrapper.ng-star-inserted > dcb-course-lesson-header > div > div.dcb-course-lesson-header-slot-end > button").click()
-                        time.sleep(1)
-                    REnew = page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dcb-course-certification-renewal > dcb-ui-notification > div.dcb-ui-notification-actions > dcb-ui-notification-aside > button > span.dcb-ui-button-interaction-backdrop")
-                    if REnew.is_visible():
-                        REnew.click()
-                        time.sleep(1)
-                        page.locator("dcb-course-certification-renewal-dialog > div > div.dcb-course-certification-renewal-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple").nth(0).click()
-                        time.sleep(5)
-                        page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dialog > div.dcb-course-player-wrapper.ng-star-inserted > dcb-course-lesson-header > div > div.dcb-course-lesson-header-slot-end > button").click()
-                    time.sleep(10)
-                    UItextType = page.locator("dcb-ui-accordion").all()
-                    for type in UItextType:
-                        type.click()
-                    page.locator("dcb-sh-list-item-content").filter(has_text="Content type: HTML").click()
-                    time.sleep(10)
-                    if  fqdn == "google-ads-display-certification-answers" or fqdn == "shopping-advertising-certification-answers":
-                        assessmentDom = page.locator(".dcb-ui-accordion-panel-header").filter(has_text="Pass the assessment and earn a certification")
+                        
                     else:
-                        assessmentDom = page.locator(".dcb-ui-accordion-panel-header").filter(has_text="certification")
-                    assessmentDom = assessmentDom.locator("..")
-                    assessmentDom.locator("dcb-sh-list-item-content").filter(has_text="Content type: Test").click()
-                    time.sleep(10)
-                    page.locator("div.dcb-course-lesson-player-test-launcher-actions > button > span.dcb-ui-button-content > span").click()
-                    time.sleep(3)
-                    page.locator("div.dcb-course-lesson-player-test-launcher-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple > span.dcb-ui-button-content").click()
-                    time.sleep(8)
-                    AnserSelect(page,fqdn)
-            time.sleep(30)
-            browser.close()
-        except Exception as e:
-            print(e)
-        data = {
-            "content": SendContent
-        }
-        requests.post(webhook_url, json=data)
+                        page.goto(SkillLeasonUrl+SkillcertURLDict[fqdn])
+                        print("Skill")
+                        time.sleep(15)
+                        growofflineSetting = "#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dialog > div.dcb-course-player-wrapper.ng-star-inserted > dcb-course-lesson-header > div > div.dcb-course-lesson-header-slot-end > button"
+                        if fqdn == "grow-offline-sales-certification-answers":
+                            if page.locator(growofflineSetting).is_visible():
+                                page.locator(growofflineSetting).click()
+                            time.sleep(1)
+                        REnew = page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dcb-course-certification-renewal > dcb-ui-notification > div.dcb-ui-notification-actions > dcb-ui-notification-aside > button > span.dcb-ui-button-interaction-backdrop")
+                        if REnew.is_visible():
+                            REnew.click()
+                            time.sleep(1)
+                            page.locator("dcb-course-certification-renewal-dialog > div > div.dcb-course-certification-renewal-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple").nth(0).click()
+                            time.sleep(5)
+                            page.locator("#doc-layout-page-content > lrn-course-player > div.lrn-course-player-play-area > dcb-course-player > dialog > div.dcb-course-player-wrapper.ng-star-inserted > dcb-course-lesson-header > div > div.dcb-course-lesson-header-slot-end > button").click()
+                            time.sleep(5)
+                            if fqdn == "grow-offline-sales-certification-answers":
+                                if page.locator(growofflineSetting).is_visible():
+                                    page.locator(growofflineSetting).click()
+                                time.sleep(1)
+                        time.sleep(10)
+                        UItextType = page.locator("dcb-ui-accordion").all()
+                        for type in UItextType:
+                            if fqdn == "grow-offline-sales-certification-answers":
+                                if page.locator(growofflineSetting).is_visible():
+                                    page.locator(growofflineSetting).click()
+                                time.sleep(1)
+                            type.click()
+                        time.sleep(3)
+                        if fqdn == "grow-offline-sales-certification-answers":
+                            if page.locator(growofflineSetting).is_visible():
+                                page.locator(growofflineSetting).click()
+                            time.sleep(1)
+                        page.locator("dcb-sh-list-item-content").filter(has_text="Content type: HTML").click()
+                        if fqdn == "grow-offline-sales-certification-answers":
+                            if page.locator(growofflineSetting).is_visible():
+                                page.locator(growofflineSetting).click()
+                            time.sleep(1)
+                        time.sleep(10)
+                        if  fqdn == "google-ads-display-certification-answers" or fqdn == "shopping-advertising-certification-answers" or fqdn == "google-ads-apps-assessment-answers":
+                            assessmentDom = page.locator(".dcb-ui-accordion-panel-header").filter(has_text="Pass the assessment and earn a certification")
+                        else:
+                            assessmentDom = page.locator(".dcb-ui-accordion-panel-header").filter(has_text="certification")
+                        assessmentDom = assessmentDom.locator("..")
+                        assessmentDom.locator("dcb-sh-list-item-content").filter(has_text="Content type: Test").click()
+                        time.sleep(10)
+                        page.locator("div.dcb-course-lesson-player-test-launcher-actions > button > span.dcb-ui-button-content > span").click()
+                        time.sleep(3)
+                        page.locator("div.dcb-course-lesson-player-test-launcher-dialog-actions > button.dcb-ui-button-focus-ring-negative.dcb-ui-button-theme-accent.dcb-ui-button-shape-squared.dcb-ui-button-size-sm.dcb-ui-ripple > span.dcb-ui-button-content").click()
+                        time.sleep(8)
+                        AnserSelect(page,fqdn)
+                        SendContent += "Cert "+fqdn+" user "+account+"\n"
+                time.sleep(30)
+                browser.close()
+            except Exception as e:
+                print(e)
+            data = {
+                "content": SendContent
+            }
+            requests.post(webhook_url, json=data)
 
 
 
